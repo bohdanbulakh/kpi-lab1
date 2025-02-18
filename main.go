@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -12,4 +13,8 @@ func main() {
 func StartServer(port int) {
 	address := fmt.Sprintf(":%d", port)
 	err := http.ListenAndServe(address, nil)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
