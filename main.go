@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	time2 "time"
+	"time"
 )
 
 func main() {
@@ -27,8 +27,7 @@ func timeHandler(writer http.ResponseWriter, _ *http.Request) {
 	writer.WriteHeader(http.StatusOK)
 	writer.Header().Set("Content-Type", "application/json")
 
-	time := fmt.Sprintf("%v", time2.Now())
-	response := map[string]string{"time": time}
+	response := map[string]string{"time": time.Now().Format(time.RFC3339)}
 	jsonResponse, exception := json.Marshal(response)
 
 	if exception != nil {
