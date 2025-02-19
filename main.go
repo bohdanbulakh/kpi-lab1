@@ -33,7 +33,6 @@ func timeHandler(writer http.ResponseWriter, _ *http.Request) {
 	_, exception = writer.Write(jsonResponse)
 
 	ProcessException(exception)
-
 }
 
 func ProcessException(exception error) {
