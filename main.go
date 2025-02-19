@@ -25,7 +25,7 @@ func timeHandler(writer http.ResponseWriter, _ *http.Request) {
 	writer.WriteHeader(http.StatusOK)
 	writer.Header().Set("Content-Type", "application/json")
 
-	response := map[string]string{"time": time.Now().Format(time.RFC3339)}
+	response := map[string]string{"time": getTime()}
 	jsonResponse, exception := json.Marshal(response)
 
 	ProcessException(exception)
@@ -39,4 +39,8 @@ func ProcessException(exception error) {
 	if exception != nil {
 		log.Fatal(exception)
 	}
+}
+
+func getTime() string {
+	return time.Now().Format(time.RFC3339)
 }
