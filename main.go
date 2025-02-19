@@ -18,9 +18,7 @@ func StartServer(port int) {
 	address := fmt.Sprintf(":%d", port)
 	err := http.ListenAndServe(address, nil)
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	ProcessException(err)
 }
 
 func timeHandler(writer http.ResponseWriter, _ *http.Request) {
@@ -30,10 +28,15 @@ func timeHandler(writer http.ResponseWriter, _ *http.Request) {
 	response := map[string]string{"time": time.Now().Format(time.RFC3339)}
 	jsonResponse, exception := json.Marshal(response)
 
-	if exception != nil {
-		log.Fatal(exception)
-	}
+	ProcessException(exception)
 
 	_, exception = writer.Write(jsonResponse)
 
+	ProcessException(exception)
+}
+
+func ProcessException(exception error) {
+	if exception != nil {
+		log.Fatal(exception)
+	}
 }
